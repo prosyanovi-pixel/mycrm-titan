@@ -1,0 +1,906 @@
+/**
+ * Основные стили для CRM системы с боковым меню - Компактная версия
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.4;
+    color: #333;
+    background-color: #f5f5f5;
+    display: flex;
+    min-height: 100vh;
+    font-size: 0.9rem;
+}
+
+/* Боковое меню - компактное */
+.sidebar {
+    width: 200px;
+    background: #2c3e50;
+    color: white;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+}
+
+.sidebar.collapsed {
+    width: 60px;
+}
+
+.sidebar-header {
+    padding: 1rem 0.75rem;
+    border-bottom: 1px solid #34495e;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo i {
+    font-size: 1.25rem;
+    color: #3498db;
+    cursor: pointer; /* Делаем курсор указателем */
+    transition: transform 0.2s ease;
+}
+
+.logo i:hover {
+    transform: scale(1.1); /* Легкое увеличение при наведении */
+}
+
+.logo-text {
+    font-size: 1rem;
+    font-weight: bold;
+    transition: opacity 0.2s ease;
+}
+
+.sidebar.collapsed .logo-text {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.sidebar-toggle {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0.25rem;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+    background: #34495e;
+}
+
+.sidebar.collapsed .sidebar-toggle i {
+    transform: rotate(180deg);
+}
+
+.sidebar-menu {
+    list-style: none;
+    flex: 1;
+    padding: 0.5rem 0;
+    overflow-y: auto;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    color: #bdc3c7;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+    margin: 0.15rem 0;
+    font-size: 0.85rem;
+}
+
+.menu-link:hover {
+    background: #34495e;
+    color: white;
+    border-left-color: #3498db;
+}
+
+.menu-link.active {
+    background: #34495e;
+    color: white;
+    border-left-color: #3498db;
+}
+
+.menu-link i {
+    font-size: 1rem;
+    width: 18px;
+    text-align: center;
+}
+
+.menu-text {
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+}
+
+.sidebar.collapsed .menu-text {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.sidebar-footer {
+    border-top: 1px solid #34495e;
+    padding: 0.75rem;
+    margin-top: auto;
+}
+
+/* Стили для ссылки пользователя */
+.user-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    padding: 6px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+    width: 100%;
+}
+
+.user-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+    color: inherit;
+}
+
+.user-info {
+    width: 100%;
+}
+
+.user-avatar {
+    margin-right: 8px;
+    font-size: 1.5rem;
+    color: #3498db;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+.username {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 1px;
+}
+
+.user-role {
+    font-size: 0.75rem;
+    color: #bdc3c7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar.collapsed .user-details {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.6rem;
+    background: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-align: left;
+    font-size: 0.85rem;
+}
+
+.logout-btn:hover {
+    background: #c0392b;
+}
+
+.logout-text {
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+}
+
+.sidebar.collapsed .logout-text {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Основной контейнер */
+.main-container {
+    flex: 1;
+    margin-left: 200px;
+    transition: margin-left 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.sidebar.collapsed ~ .main-container {
+    margin-left: 60px;
+}
+
+/* Верхний хедер */
+.main-header {
+    background: white;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 60px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    height: 100%;
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0.4rem;
+    border-radius: 3px;
+    transition: background 0.2s;
+    display: none;
+}
+
+.menu-toggle:hover {
+    background: #f5f5f5;
+}
+
+.header-title h1 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.header-btn {
+    position: relative;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0.4rem;
+    border-radius: 3px;
+    transition: background 0.2s;
+}
+
+.header-btn:hover {
+    background: #f5f5f5;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #e74c3c;
+    color: white;
+    font-size: 0.65rem;
+    padding: 0.1rem 0.25rem;
+    border-radius: 8px;
+    min-width: 14px;
+    text-align: center;
+}
+
+/* Основной контент */
+.main-content {
+    flex: 1;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    min-height: calc(100vh - 120px);
+}
+
+/* Футер */
+.main-footer {
+    background: #2c3e50;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.version {
+    font-size: 0.75rem;
+    color: #bdc3c7;
+}
+
+/* Стили для страницы входа */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.login-page .sidebar,
+.login-page .main-header {
+    display: none;
+}
+
+.login-page .main-container {
+    margin-left: 0 !important;
+    width: 100%;
+}
+
+.login-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
+}
+
+.fa-chart-line {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.fa-chart-line:hover {
+    transform: scale(1.1);
+}
+
+.logo {
+    cursor: pointer;
+}
+
+/* Компактные стили для форм и дашборда */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.dashboard-card {
+    background: white;
+    padding: 1.25rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Компактные формы */
+.form-group {
+    margin-bottom: 0.75rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.85rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Компактные кнопки */
+.btn-primary, .btn-secondary {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+/* Компактная таблица */
+.table-container {
+    overflow-x: auto;
+    font-size: 0.85rem;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.75rem;
+}
+
+.users-table th,
+.users-table td {
+    padding: 0.6rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.users-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.8rem;
+}
+
+.users-table tr:hover {
+    background: #f8f9fa;
+}
+
+/* Компактные бейджи */
+.role-badge, .status-badge {
+    padding: 0.2rem 0.4rem;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.role-admin {
+    background: #e74c3c;
+    color: white;
+}
+
+.role-manager {
+    background: #f39c12;
+    color: white;
+}
+
+.role-user {
+    background: #27ae60;
+    color: white;
+}
+
+.status-badge.active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.inactive {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Компактные кнопки действий */
+.actions {
+    display: flex;
+    gap: 0.2rem;
+    flex-wrap: wrap;
+}
+
+.btn-small {
+    padding: 0.2rem 0.4rem;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-edit {
+    background: #3498db;
+    color: white;
+}
+
+.btn-change-password {
+    background: #f39c12;
+    color: white;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-small:hover {
+    opacity: 0.9;
+}
+
+/* Компактные модальные окна */
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 1.5rem;
+    border-radius: 6px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.75rem;
+}
+
+.close:hover {
+    color: #000;
+}
+
+/* Компактные алерты */
+.alert {
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Управление таблицей - компактное */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding: 0.75rem;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.search-box {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.search-box input {
+    padding: 0.4rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 250px;
+    font-size: 0.85rem;
+}
+
+.records-per-page {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.records-per-page select {
+    padding: 0.4rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+/* Компактная пагинация */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+}
+
+.page-link {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+}
+
+.page-link:hover {
+    background: #3498db;
+    color: white;
+    border-color: #3498db;
+}
+
+.page-link.active {
+    background: #3498db;
+    color: white;
+    border-color: #3498db;
+}
+
+/* Компактные действия в формах */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #eee;
+}
+
+/* Профиль и настройки - компактные */
+.profile-content {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.profile-avatar {
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.profile-details {
+    flex: 1;
+}
+
+.profile-details p {
+    margin-bottom: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.85rem;
+}
+
+.profile-details strong {
+    color: #495057;
+    min-width: 120px;
+    display: inline-block;
+}
+
+.settings-section {
+    background: white;
+    padding: 1.25rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+
+.settings-section h3 {
+    margin-bottom: 0.75rem;
+    color: #2c3e50;
+    border-bottom: 1px solid #3498db;
+    padding-bottom: 0.4rem;
+    font-size: 1.1rem;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    body {
+        font-size: 0.85rem;
+    }
+    
+    .sidebar {
+        transform: translateX(-100%);
+        width: 200px;
+    }
+    
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+    
+    .sidebar.collapsed {
+        transform: translateX(-100%);
+    }
+    
+    .main-container {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+    
+    .header-content {
+        padding: 0.75rem;
+    }
+    
+    .main-content {
+        padding: 1rem;
+        min-height: calc(100vh - 120px);
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 0.4rem;
+        text-align: center;
+    }
+    
+    .table-controls {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: stretch;
+    }
+    
+    .search-box input {
+        width: 100%;
+    }
+    
+    .profile-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 0.75rem;
+    }
+    
+    .header-content {
+        padding: 0.5rem;
+    }
+    
+    .header-title h1 {
+        font-size: 1.1rem;
+    }
+    
+    .dashboard-card {
+        padding: 1rem;
+    }
+    
+    .modal-content {
+        margin: 5% auto;
+        padding: 1rem;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Утилиты для компактного отображения */
+.text-sm {
+    font-size: 0.85rem;
+}
+
+.text-xs {
+    font-size: 0.75rem;
+}
+
+.p-2 {
+    padding: 0.5rem;
+}
+
+.p-3 {
+    padding: 0.75rem;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+    margin-bottom: 0.75rem;
+}
+/* сворячиваемое меню */
+.sidebar-collapse-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+}
+
+.sidebar-collapse-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar.collapsed .sidebar-collapse-btn i {
+    transform: rotate(180deg);
+}
